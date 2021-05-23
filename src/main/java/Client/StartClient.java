@@ -1,4 +1,4 @@
-package Clent;
+package Client;
 
 public class StartClient {
 

@@ -16,8 +16,8 @@ public class Server {
         try {
             while (true) {
                 socket = serverSocket.accept();
-                new Handler(socket);
-                System.out.println("Клиент подключился");
+                Thread.sleep(2000);
+                new Thread(new Handler(socket)).start();
             }
         } catch (Exception e) {
             e.printStackTrace();
