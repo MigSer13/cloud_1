@@ -41,8 +41,8 @@ public class Handler implements Runnable {
             } finally {
                 try {
                     socket.close();
-                    is.close();
-                    os.close();
+                    //is.close();
+                    //os.close();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
