@@ -8,9 +8,9 @@ public class Handler implements Runnable {
     private DataInputStream is = null;
     private DataOutputStream os = null;
     private InputStream inputStream = null;
-    private FileOutputStream fileOutputStream = null;
+    private OutputStream outputStream = null;
     private BufferedOutputStream bufOS = null;
-    private String filesPackage = "ServerFiles/";
+    private String filesPackage = "ServerFiles";
 
     public Handler(Socket socket) {
         this.socket = socket;
@@ -39,8 +39,8 @@ public class Handler implements Runnable {
             } finally {
                 try {
                     socket.close();
-                    //is.close();
-                    //os.close();
+                    is.close();
+                    os.close();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -61,22 +61,17 @@ public class Handler implements Runnable {
             //запрос файла
             os.writeUTF("bytes?");
             os.flush();
-            String answer = is.readUTF();
-            //inputStream = socket.getInputStream();
-            fileOutputStream = new FileOutputStream(filesPackage + fileName);
-            bufOS = new BufferedOutputStream(fileOutputStream);
             byte[] bytes = new byte[8192];
-            while (true) {
-                int count = 0;
-                while ((count = is.read(bytes)) != -1) {
-                    bufOS.write(bytes, 0, count);
-                }
-                bufOS.flush();
-                bufOS.close();
-                inputStream.close();
-                fileOutputStream.close();
-                break;
+            int numberBytes = is.read(bytes);
+            outputStream = new FileOutputStream( fileName);
+
+            int count = 0;
+            while ((numberBytes = is.read(bytes)) != -1) {
+                byte[] bytesWrite = new byte[numberBytes];
+                outputStream.write(bytesWrite, 0 , numberBytes);
             }
+            outputStream.flush();
+            outputStream.close();
 
         } catch (IOException e) {
             e.printStackTrace();

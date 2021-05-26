@@ -27,7 +27,7 @@ public class Client {
             sc = new Scanner(System.in);
             while (true) {
                 if (answerServer.equalsIgnoreCase("OK")) {
-                    System.out.println("OK:");
+                    System.out.println("Подключились к серверу:");
                     answerServer = "";
                 }
                 if (answerServer == "" || answerServer.startsWith("вы отправили")) {
@@ -48,22 +48,23 @@ public class Client {
                 if (answerServer.equalsIgnoreCase("bytes?")) {
                     System.out.println("укажите путь к вашему файлу");
                     String path = sc.nextLine();
-                    os.writeUTF("bytes");
-                    os.flush();
+//                    os.writeUTF("bytes");
+//                    os.flush();
 
                     fileIS = new FileInputStream(path);
-                    bufIS = new BufferedInputStream(fileIS);
-                    bufOS = new BufferedOutputStream(socket.getOutputStream());
+//                    bufIS = new BufferedInputStream(fileIS);
+//                    bufOS = new BufferedOutputStream(socket.getOutputStream());
                     byte[] bytes = new byte[8192];
                     int count = 0;
-                    while ((count = bufIS.read(bytes)) != -1) {
-                        bufOS.write(bytes, 0, count);
+                    while ((count = fileIS.read(bytes)) != -1) {
+                        os.write(bytes, 0, count);
                     }
-                    bufOS.flush();
+                    os.flush();
                     fileIS.close();
-                    bufIS.close();
-                    bufOS.close();
+                    //bufIS.close();
+                    //bufOS.close();
                     //break;
+                    answerServer = "";
                 }
             }
 
