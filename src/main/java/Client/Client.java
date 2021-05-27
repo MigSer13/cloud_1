@@ -53,7 +53,7 @@ public class Client {
 
                     inputStream = new FileInputStream(path);
 //                    bufIS = new BufferedInputStream(fileIS);
-//                    bufOS = new BufferedOutputStream(socket.getOutputStream());
+////                    bufOS = new BufferedOutputStream(socket.getOutputStream());
                     byte[] bytes = new byte[8192];
                     int count = 0;
                     while ((count = inputStream.read(bytes)) != -1) {
