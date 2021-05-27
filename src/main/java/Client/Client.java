@@ -11,7 +11,7 @@ public class Client {
     private DataInputStream is = null;
     private DataOutputStream os = null;
     private Scanner sc = null;
-    private FileInputStream fileIS = null;
+    private InputStream inputStream = null;
     private BufferedInputStream bufIS = null;
     private BufferedOutputStream bufOS = null;
 
@@ -51,16 +51,16 @@ public class Client {
 //                    os.writeUTF("bytes");
 //                    os.flush();
 
-                    fileIS = new FileInputStream(path);
+                    inputStream = new FileInputStream(path);
 //                    bufIS = new BufferedInputStream(fileIS);
 //                    bufOS = new BufferedOutputStream(socket.getOutputStream());
                     byte[] bytes = new byte[8192];
                     int count = 0;
-                    while ((count = fileIS.read(bytes)) != -1) {
+                    while ((count = inputStream.read(bytes)) != -1) {
                         os.write(bytes, 0, count);
                     }
                     os.flush();
-                    fileIS.close();
+                    inputStream.close();
                     //bufIS.close();
                     //bufOS.close();
                     //break;

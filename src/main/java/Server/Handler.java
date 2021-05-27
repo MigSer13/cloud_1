@@ -10,7 +10,7 @@ public class Handler implements Runnable {
     private InputStream inputStream = null;
     private OutputStream outputStream = null;
     private BufferedOutputStream bufOS = null;
-    private String filesPackage = "ServerFiles";
+    private String filesPackage = "./src/main/java/Server/ServerFiles/";
 
     public Handler(Socket socket) {
         this.socket = socket;
@@ -62,10 +62,9 @@ public class Handler implements Runnable {
             os.writeUTF("bytes?");
             os.flush();
             byte[] bytes = new byte[8192];
-            int numberBytes = is.read(bytes);
-            outputStream = new FileOutputStream( fileName);
+            int numberBytes = 0;
+            outputStream = new FileOutputStream(filesPackage + fileName);
 
-            int count = 0;
             while ((numberBytes = is.read(bytes)) != -1) {
                 byte[] bytesWrite = new byte[numberBytes];
                 outputStream.write(bytesWrite, 0 , numberBytes);
